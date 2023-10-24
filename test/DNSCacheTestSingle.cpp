@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 //
-#include "library.h"
+#include "DNSCache.h"
 //
-TEST(test_library, success)
+TEST(DNSCacheTestSingle, success)
 {
 	ASSERT_EQ(function(), 0);
 }

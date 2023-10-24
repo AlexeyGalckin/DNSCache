@@ -5,8 +5,9 @@ enable_testing()
 file( GLOB SRC *.cpp )
 file( GLOB HDR *.hpp )
 #
-add_executable( library-test ${SRC} ${HDR})
+add_executable( DNSCacheTest ${SRC} ${HDR})
+add_dependencies( DNSCacheTest DNSCache)
 #
-target_link_libraries( library-test PRIVATE library GTest::gtest GTest::gtest_main )
+target_link_libraries( DNSCacheTest PRIVATE DNSCache GTest::gtest GTest::gtest_main )
 #
-gtest_add_tests(TARGET library-test )
+gtest_add_tests(TARGET DNSCacheTest )
