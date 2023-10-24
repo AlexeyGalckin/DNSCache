@@ -1,4 +1,4 @@
-# cpphlib
-A CMake C++ Header Only Library Skeleton
+# DNSCache
+A test task for interview to company P.
 #
-This is an ultra minimalistic header-only library cmake based project to use as a template.
+Contains class implementation and set of unit tests for it
