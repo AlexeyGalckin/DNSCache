@@ -74,12 +74,12 @@ TEST(DNSCacheTestLRU, MultiUpdateMultiReplace)
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
 	cache.update("REST", "3.3.3.3");
-	cache.update("BEST", "3.3.3.3");
+	cache.update("BEST", "4.4.4.4");
 	//
 	ASSERT_TRUE(cache.resolve("HOST").empty());
 	ASSERT_TRUE(cache.resolve("TEST").empty());
 	//
-	ASSERT_EQ(cache.resolve("TEST"), "3.3.3.3");
+	ASSERT_EQ(cache.resolve("REST"), "3.3.3.3");
 	ASSERT_EQ(cache.resolve("BEST"), "4.4.4.4");
 }
 //
