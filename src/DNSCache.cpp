@@ -7,6 +7,8 @@ DNSCache::DNSCache(size_t max_size)
 //
 void DNSCache::update(const std::string& name, const std::string& ip)
 {
+    auto lock = std::lock_guard(_mutex);
+    //
     auto t = _cache.find(name);
     //
     if (t == _cache.end())
@@ -29,6 +31,8 @@ void DNSCache::update(const std::string& name, const std::string& ip)
 //
 std::string DNSCache::resolve(const std::string& name)
 {
+    auto lock = std::lock_guard(_mutex);
+    //
     auto t = _cache.find(name);
     //
     if (t == _cache.end())

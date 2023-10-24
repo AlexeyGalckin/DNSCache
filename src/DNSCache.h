@@ -3,6 +3,7 @@
 #include <string>
 #include <list>
 #include <unordered_map>
+#include <mutex>
 //
 class DNSCache
 {
@@ -16,9 +17,11 @@ private:
 	using entry_t = std::pair< std::string, std::string >;
 	using list_t  = std::list< entry_t >;
 	using cache_t = std::unordered_map< std::string_view, list_t::iterator >;
+	using mutex_t = std::mutex;
 	//
 	list_t  _lru;
 	cache_t _cache;
+	mutex_t _mutex;
 	//
-	size_t _size;
+	const size_t _size;
 };
