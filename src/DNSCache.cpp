@@ -1,6 +1,14 @@
 #include "DNSCache.h"
 //
-int function()
+DNSCache::DNSCache(size_t max_size)
 {
-	return 0;
+}
+//
+void DNSCache::update(const std::string& name, const std::string& ip)
+{
+}
+//
+std::string DNSCache::resolve(const std::string& name)
+{
+	return std::string();
 }
