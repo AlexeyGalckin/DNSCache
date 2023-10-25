@@ -10,4 +10,4 @@ add_dependencies( DNSCacheTest DNSCache)
 #
 target_link_libraries( DNSCacheTest PRIVATE DNSCache GTest::gtest GTest::gtest_main )
 #
-gtest_add_tests(TARGET DNSCacheTest )
+gtest_discover_tests( DNSCacheTest )
