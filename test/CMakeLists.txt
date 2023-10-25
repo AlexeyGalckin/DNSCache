@@ -1,7 +1,5 @@
 find_package(GTest REQUIRED)
 #
-enable_testing()
-#
 file( GLOB SRC *.cpp )
 file( GLOB HDR *.hpp )
 #
