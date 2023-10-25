@@ -13,6 +13,9 @@ void DNSCache::update(const std::string& name, const std::string& ip)
     //
     if (t == _cache.end())
     {
+        if (_size == 0)
+            return;
+        //
         if (_cache.size() == _size)
         {
             _cache.erase(_lru.front().first);
@@ -42,3 +45,15 @@ std::string DNSCache::resolve(const std::string& name)
     //
     return t->second->second;
 }
+//
+void DNSCache::initialize(size_t max_size)
+{
+    _inst.reset(new DNSCache(max_size));
+}
+//
+DNSCache& DNSCache::instance() noexcept
+{
+    return *_inst;
+}
+//
+std::unique_ptr< DNSCache > DNSCache::_inst = {};

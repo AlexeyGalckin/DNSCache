@@ -2,9 +2,20 @@
 //
 #include "DNSCache.h"
 //
-TEST(DNSCacheTestBasic, EmptyNoSuchEntry)
+TEST(DNSCacheTestBasic, ZeroSizeNoEtries)
 {
-	DNSCache cache(1);
+	DNSCache::initialize(0);
+	auto& cache = DNSCache::instance();
+	//
+	cache.update("HOST", "1.1.1.1");
+	//
+	ASSERT_TRUE(cache.resolve("HOST").empty());
+}
+//
+TEST(DNSCacheTestBasic, SingleEmptyNoSuchEntry)
+{
+	DNSCache::initialize(1);
+	auto& cache = DNSCache::instance();
 	//
 	ASSERT_TRUE(cache.resolve("TEST").empty());
 	ASSERT_TRUE(cache.resolve("").empty());
@@ -12,7 +23,8 @@ TEST(DNSCacheTestBasic, EmptyNoSuchEntry)
 //
 TEST(DNSCacheTestBasic, SingleNoSuchEntry)
 {
-	DNSCache cache(1);
+	DNSCache::initialize(1);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	//
@@ -22,7 +34,8 @@ TEST(DNSCacheTestBasic, SingleNoSuchEntry)
 //
 TEST(DNSCacheTestBasic, SingleReturnsEntry)
 {
-	DNSCache cache(1);
+	DNSCache::initialize(1);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	//
@@ -31,7 +44,8 @@ TEST(DNSCacheTestBasic, SingleReturnsEntry)
 //
 TEST(DNSCacheTestBasic, MultiReturnsEntry)
 {
-	DNSCache cache(3);
+	DNSCache::initialize(3);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
@@ -44,7 +58,8 @@ TEST(DNSCacheTestBasic, MultiReturnsEntry)
 //
 TEST(DNSCacheTestLRU, SingleUpdateReplace)
 {
-	DNSCache cache(1);
+	DNSCache::initialize(1);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
@@ -55,7 +70,8 @@ TEST(DNSCacheTestLRU, SingleUpdateReplace)
 //
 TEST(DNSCacheTestLRU, MultiUpdateSingleReplace)
 {
-	DNSCache cache(2);
+	DNSCache::initialize(2);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
@@ -69,7 +85,8 @@ TEST(DNSCacheTestLRU, MultiUpdateSingleReplace)
 //
 TEST(DNSCacheTestLRU, MultiUpdateMultiReplace)
 {
-	DNSCache cache(2);
+	DNSCache::initialize(2);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
@@ -85,7 +102,8 @@ TEST(DNSCacheTestLRU, MultiUpdateMultiReplace)
 //
 TEST(DNSCacheTestLRU, MultiResolveSingleReplace)
 {
-	DNSCache cache(2);
+	DNSCache::initialize(2);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
@@ -102,7 +120,8 @@ TEST(DNSCacheTestLRU, MultiResolveSingleReplace)
 //
 TEST(DNSCacheTestLRU, MultiResolveUpdateMultiReplace)
 {
-	DNSCache cache(3);
+	DNSCache::initialize(3);
+	auto& cache = DNSCache::instance();
 	//
 	cache.update("HOST", "1.1.1.1");
 	cache.update("TEST", "2.2.2.2");
