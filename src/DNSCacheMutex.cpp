@@ -1,11 +1,11 @@
-#include "DNSCache.h"
+#include "DNSCacheMutex.h"
 //
-DNSCache::DNSCache(size_t max_size)
+DNSCacheMutex::DNSCacheMutex(size_t max_size)
 	: _size(max_size)
 {
 }
 //
-void DNSCache::update(const std::string& name, const std::string& ip)
+void DNSCacheMutex::update(const std::string& name, const std::string& ip)
 {
     if (_size == 0)
         return;
@@ -32,7 +32,7 @@ void DNSCache::update(const std::string& name, const std::string& ip)
     }
 }
 //
-std::string DNSCache::resolve(const std::string& name)
+std::string DNSCacheMutex::resolve(const std::string& name)
 {
     auto lock = std::lock_guard(_mutex);
     //
@@ -46,14 +46,3 @@ std::string DNSCache::resolve(const std::string& name)
     return t->second->second;
 }
 //
-void DNSCache::initialize(size_t max_size)
-{
-    _inst.reset(new DNSCache(max_size));
-}
-//
-DNSCache& DNSCache::instance() noexcept
-{
-    return *_inst;
-}
-//
-std::unique_ptr< DNSCache > DNSCache::_inst = {};
